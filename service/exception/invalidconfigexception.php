@@ -12,6 +12,6 @@
 
 namespace OCA\VineCellar\Service\Exception;
 
-class InvalidConfigException {
+class InvalidConfigException extends ServiceException {
 	
 }

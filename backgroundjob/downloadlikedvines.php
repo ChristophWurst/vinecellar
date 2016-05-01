@@ -12,29 +12,26 @@
 
 namespace OCA\VineCellar\BackgroundJob;
 
-use OC;
 use OC\BackgroundJob\TimedJob;
 use OCA\VineCellar\AppInfo\Application;
-use OCA\VineCellar\Service\VineDownloader;
-use OCP\IUserManager;
+use OCA\VineCellar\Service\VineDealer;
 
-class DownloadVinesInBackground extends TimedJob {
+class DownloadLikedVines extends TimedJob {
 
 	public function __construct() {
-		$this->setInterval(12 * 60 * 60); // Twice a day
+		$this->setInterval(60 * 30); // Every 30 mins
 	}
 
 	protected function run($argument) {
 		$app = new Application();
 		$container = $app->getContainer();
 
-		/* @var $userManager IUserManager */
-		$userManager = OC::$server->getUserManager();
-		/* @var $vineDownloader VineDownloader */
-		$vineDownloader = $container->query(VineDownloader::class);
+		/* @var $vineDownloader VineDealer */
+		$vineDownloader = $container->query(VineDealer::class);
 
+		$userManager = $container->getServer()->getUserManager();
 		$userManager->callForAllUsers(function ($user) use ($vineDownloader) {
-			$vineDownloader->downloadUsersLikeVines($user);
+			$vineDownloader->downloadUsersLikedVines($user);
 		});
 	}
 

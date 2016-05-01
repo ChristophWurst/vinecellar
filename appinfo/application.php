@@ -12,7 +12,8 @@
 
 namespace OCA\VineCellar\AppInfo;
 
-use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
+use OCA\VineCellar\BackgroundJob\DownloadLikedVines;
+use OCA\VineCellar\BackgroundJob\SyncLikedVines;
 use OCP\AppFramework\App;
 
 class Application extends App {
@@ -23,7 +24,8 @@ class Application extends App {
 
 	public function setupCron() {
 		$jobList = $this->getContainer()->getServer()->getJobList();
-		$jobList->add(new DownloadVinesInBackground());
+		$jobList->add(new SyncLikedVines());
+		$jobList->add(new DownloadLikedVines());
 	}
 
 }

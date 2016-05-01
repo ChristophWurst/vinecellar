@@ -37,4 +37,16 @@ class VineMapper extends Mapper {
 		]);
 	}
 
+	public function findNotDownloadedVines($userId, $count) {
+		$sql = 'SELECT `id`, `user_id`, `description`, `permalink`, '
+			. '`vine_user_id`, `username`, `video_url`, `downloaded` '
+			. 'FROM ' . $this->getTableName() . ' '
+			. 'WHERE `user_id` = ? '
+			. 'AND `downloaded` = 0';
+
+		return $this->findEntities($sql, [
+				$userId,
+		], $count);
+	}
+
 }

@@ -12,33 +12,33 @@
 
 namespace OCA\VineCellar\Controller;
 
-use OCA\VineCellar\Service\VineDownloader;
+use OCA\VineCellar\Service\VineDealer;
 use OCP\AppFramework\Controller;
 use OCP\IRequest;
 use OCP\IUserManager;
 
 class DownloadController extends Controller {
 
-	/** @var VineDownloader */
-	private $downloader;
+	/** @var VineDealer */
+	private $dealer;
 
 	/** @var IUserManager */
 	private $userManager;
 
 	/** @var string */
-	private $user;
+	private $userId;
 
 	/**
 	 * @param type $appName
 	 * @param IRequest $request
 	 * @param string $UserId
-	 * @param VineDownloader $downloader
+	 * @param VineDealer $dealer
 	 */
-	public function __construct($appName, IRequest $request, IUserManager $userManager, $UserId, VineDownloader $downloader) {
+	public function __construct($appName, IRequest $request, IUserManager $userManager, $UserId, VineDealer $dealer) {
 		parent::__construct($appName, $request);
 		$this->userManager = $userManager;
-		$this->user = $UserId;
-		$this->downloader = $downloader;
+		$this->userId = $UserId;
+		$this->dealer = $dealer;
 	}
 
 	/**
@@ -46,8 +46,8 @@ class DownloadController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index() {
-		$user = $this->userManager->get($this->user);
-		return $this->downloader->downloadUsersLikeVines($user);
+		$user = $this->userManager->get($this->userId);
+		return $this->dealer->downloadUsersLikedVines($user);
 	}
 
 }

@@ -13,11 +13,11 @@
 namespace OCA\VineCellar\Service\Api;
 
 use Closure;
+use Exception;
 use OCA\VineCellar\Service\Exception\ApiException;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\ILogger;
-use Sabre\DAV\Exception;
 
 class VineAPI {
 
