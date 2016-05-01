@@ -24,12 +24,20 @@ class Sync {
 	/** @var Logger */
 	private $logger;
 
+	/**
+	 * @param VineMapper $mapper
+	 * @param \OCA\VineCellar\Service\Logger $logger
+	 */
 	public function __construct(VineMapper $mapper, Logger $logger) {
 		$this->mapper = $mapper;
 		$this->logger = $logger;
 	}
 
-	public function syncLikedVines(IUser $user, $records) {
+	/**
+	 * @param IUser $user
+	 * @param array $records
+	 */
+	public function syncLikedVines(IUser $user, array $records) {
 		$ids = array_map(function ($record) {
 			return (int) $record->postId;
 		}, $records);
@@ -47,13 +55,22 @@ class Sync {
 		$this->saveNewVines($newRecords, $user->getUID());
 	}
 
-	private function saveNewVines($records, $userId) {
+	/**
+	 * @param array $records
+	 * @param string $userId
+	 */
+	private function saveNewVines(array $records, $userId) {
 		foreach ($records as $record) {
 			$vine = $this->createVine($record, $userId);
 			$this->mapper->insert($vine);
 		}
 	}
 
+	/**
+	 * @param object $record
+	 * @param string $userId
+	 * @return Vine
+	 */
 	private function createVine($record, $userId) {
 		$vine = new Vine();
 		$vine->setId($record->postId);

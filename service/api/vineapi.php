@@ -72,6 +72,11 @@ class VineAPI {
 		$this->userId = $data->userId;
 	}
 
+	/**
+	 * Log out the current user
+	 *
+	 * @return type
+	 */
 	public function logout() {
 		if (is_null($this->requestToken)) {
 			return;
@@ -83,6 +88,11 @@ class VineAPI {
 		});
 	}
 
+	/**
+	 * Get liked vines of the logged in user
+	 *
+	 * Vines are returned (yielded) in chunks of about 100 vines each
+	 */
 	public function getLikes() {
 		$page = 1;
 		do {
@@ -97,6 +107,11 @@ class VineAPI {
 		} while (!is_null($data->nextPage) || $data->nextPage === '');
 	}
 
+	/**
+	 * Build request headers needed for authorized requests
+	 *
+	 * @return type
+	 */
 	private function getRequestHeaders() {
 		return [
 			'vine-session-id' => $this->requestToken,
