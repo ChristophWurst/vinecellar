@@ -29,7 +29,7 @@ class DownloadVinesInBackground {
 		$vineDownloader = $container->query(VineDownloader::class);
 
 		$userManager->callForAllUsers(function ($user) use ($vineDownloader) {
-			$vineDownloader->downloadUsersVines($user);
+			$vineDownloader->downloadUsersLikeVines($user);
 		});
 	}
 

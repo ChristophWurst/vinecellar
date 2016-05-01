@@ -27,6 +27,9 @@ class VineDownloader {
 	/** @var VineAPI */
 	private $api;
 
+	/** @var Sync */
+	private $sync;
+
 	/** @var IniReader */
 	private $iniReader;
 
@@ -36,8 +39,9 @@ class VineDownloader {
 	/** @var Logger */
 	private $logger;
 
-	public function __construct(VineAPI $api, IServerContainer $serverContainer, IniReader $iniReader, Logger $logger) {
+	public function __construct(VineAPI $api, Sync $sync, IServerContainer $serverContainer, IniReader $iniReader, Logger $logger) {
 		$this->api = $api;
+		$this->sync = $sync;
 		$this->serverContainer = $serverContainer;
 		$this->iniReader = $iniReader;
 		$this->logger = $logger;
@@ -56,7 +60,7 @@ class VineDownloader {
 		];
 	}
 
-	public function downloadUsersVines(IUser $user) {
+	public function downloadUsersLikeVines(IUser $user) {
 		$this->logger->debug("downloading vines for user " . $user->getUID());
 		$userFolder = $this->serverContainer->getUserFolder($user->getUID());
 		try {
@@ -65,14 +69,20 @@ class VineDownloader {
 				$config = $this->iniReader->readString($configFile->getContent());
 				$cred = $this->getLoginCredentials($config);
 				$this->api->login($cred['username'], $cred['password']);
-				$likes = $this->api->getLikes($cred['username']);
+				$this->syncLikes($user, $cred['username']);
 				$this->api->logout();
-				return $likes;
 			}
 		} catch (NotFoundException $ex) {
 			$this->logger->debug($user->getUID() . " does not have a vine cellar config files");
 		} catch (IniReadingException $ex) {
 			$this->logger->warning("user " . $user->getUID() . " has invalid vine cellar config");
+		}
+	}
+
+	private function syncLikes(IUser $user, $username) {
+		foreach ($this->api->getLikes($username) as $records) {
+			$this->logger->debug('syncing chunk of ' . count($records) . ' vines of user ' . $user->getUID());
+			$this->sync->syncLikedVines($user, $records);
 		}
 	}
 

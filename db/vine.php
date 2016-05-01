@@ -10,9 +10,18 @@
  * @copyright Christoph Wurst 2016
  */
 
-namespace OCA\VineCellar\AppInfo;
+namespace OCA\VineCellar\Db;
 
-use OC;
-use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
+use OCP\AppFramework\Db\Entity;
 
-OC::$server->getJobList()->add(DownloadVinesInBackground::class);
+class Vine extends Entity {
+
+	protected $userId;
+	protected $description;
+	protected $permalink;
+	protected $vineUserId;
+	protected $username;
+	protected $videoUrl;
+	protected $downloaded;
+
+}

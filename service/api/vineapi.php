@@ -84,8 +84,6 @@ class VineAPI {
 	}
 
 	public function getLikes() {
-		$likes = [];
-
 		$page = 1;
 		do {
 			$response = $this->doRequest(function() use ($page) {
@@ -94,18 +92,9 @@ class VineAPI {
 				]);
 			});
 			$data = json_decode($response->getBody())->data;
-			$ids = array_map(function ($record) {
-				return $this->getVineId($record);
-			}, $data->records);
-			$likes = array_merge($likes, $ids);
-			$page++;
+			$page = (int) $data->nextPage;
+			yield $data->records;
 		} while (!is_null($data->nextPage) || $data->nextPage === '');
-
-		return $likes;
-	}
-
-	private function getVineId($record) {
-		return $record->postId;
 	}
 
 	private function getRequestHeaders() {
