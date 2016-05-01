@@ -12,7 +12,12 @@
 
 namespace OCA\VineCellar\AppInfo;
 
-/**
- * Additional autoloader registration, e.g. registering composer autoloaders
- */
-// require_once __DIR__ . '/../vendor/autoload.php';
+use OCP\AppFramework\App;
+
+class Application extends App {
+
+	public function __construct() {
+		parent::__construct('vinecellar', []);
+	}
+
+}

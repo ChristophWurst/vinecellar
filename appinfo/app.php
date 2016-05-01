@@ -1,5 +1,7 @@
 <?php
 
+use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
+
 /**
  * ownCloud - Vine Cellar
  *
@@ -12,7 +14,4 @@
 
 namespace OCA\VineCellar\AppInfo;
 
-/**
- * Additional autoloader registration, e.g. registering composer autoloaders
- */
-// require_once __DIR__ . '/../vendor/autoload.php';
+\OCP\Backgroundjob::addRegularTask(DownloadVinesInBackground::class, 'run');

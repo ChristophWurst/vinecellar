@@ -12,7 +12,7 @@
 
 namespace OCA\VineCellar\AppInfo;
 
-/**
- * Additional autoloader registration, e.g. registering composer autoloaders
- */
-// require_once __DIR__ . '/../vendor/autoload.php';
+use OC;
+use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
+
+OC::$server->getJobList()->add(DownloadVinesInBackground::class);
