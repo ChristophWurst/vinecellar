@@ -1,0 +1,14 @@
+{
+    "name": "christoph/vinecellar",
+    "description": "vine archiver for ownCloud",
+    "require": {
+        "piwik/ini": "^1.0"
+    },
+    "license": "AGPL-V3",
+    "authors": [
+        {
+            "name": "Christoph Wurst",
+            "email": "christoph@winzerhof-wurst.at"
+        }
+    ]
+}

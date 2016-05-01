@@ -1,7 +1,5 @@
 <?php
 
-use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
-
 /**
  * ownCloud - Vine Cellar
  *
@@ -12,8 +10,8 @@ use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
  * @copyright Christoph Wurst 2016
  */
 
-namespace OCA\VineCellar\AppInfo;
+namespace OCA\VineCellar\Service\Exception;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-\OCP\Backgroundjob::addRegularTask(DownloadVinesInBackground::class, 'run');
+class ApiException extends ServiceException {
+	
+}

@@ -10,9 +10,8 @@
  * @copyright Christoph Wurst 2016
  */
 
-namespace OCA\VineCellar\AppInfo;
+namespace OCA\VineCellar\Service\Exception;
 
-/**
- * Additional autoloader registration, e.g. registering composer autoloaders
- */
-// require_once __DIR__ . '/../vendor/autoload.php';
+class InvalidConfigException {
+	
+}

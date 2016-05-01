@@ -1,7 +1,5 @@
 <?php
 
-use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
-
 /**
  * ownCloud - Vine Cellar
  *
@@ -14,6 +12,11 @@ use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
 
 namespace OCA\VineCellar\AppInfo;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-\OCP\Backgroundjob::addRegularTask(DownloadVinesInBackground::class, 'run');
+$app = new Application();
+$app->registerRoutes($this, [
+	'resources' => [
+		'download' => [
+			'url' => '/download',
+		],
+	],
+]);
