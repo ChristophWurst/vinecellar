@@ -12,12 +12,18 @@
 
 namespace OCA\VineCellar\AppInfo;
 
+use OCA\VineCellar\BackgroundJob\DownloadVinesInBackground;
 use OCP\AppFramework\App;
 
 class Application extends App {
 
 	public function __construct() {
 		parent::__construct('vinecellar', []);
+	}
+
+	public function setupCron() {
+		$jobList = $this->getContainer()->getServer()->getJobList();
+		$jobList->add(new DownloadVinesInBackground());
 	}
 
 }

@@ -13,13 +13,18 @@
 namespace OCA\VineCellar\BackgroundJob;
 
 use OC;
+use OC\BackgroundJob\TimedJob;
 use OCA\VineCellar\AppInfo\Application;
 use OCA\VineCellar\Service\VineDownloader;
 use OCP\IUserManager;
 
-class DownloadVinesInBackground {
+class DownloadVinesInBackground extends TimedJob {
 
-	public static function run() {
+	public function __construct() {
+		$this->setInterval(12 * 60 * 60); // Twice a day
+	}
+
+	protected function run($argument) {
 		$app = new Application();
 		$container = $app->getContainer();
 
