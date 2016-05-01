@@ -65,6 +65,9 @@ class VineDownloader {
 				$config = $this->iniReader->readString($configFile->getContent());
 				$cred = $this->getLoginCredentials($config);
 				$this->api->login($cred['username'], $cred['password']);
+				$likes = $this->api->getLikes($cred['username']);
+				$this->api->logout();
+				return $likes;
 			}
 		} catch (NotFoundException $ex) {
 			$this->logger->debug($user->getUID() . " does not have a vine cellar config files");

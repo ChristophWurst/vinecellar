@@ -47,7 +47,7 @@ class DownloadController extends Controller {
 	 */
 	public function index() {
 		$user = $this->userManager->get($this->user);
-		$this->downloader->downloadUsersVines($user);
+		return $this->downloader->downloadUsersVines($user);
 	}
 
 }
