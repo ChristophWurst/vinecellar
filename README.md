@@ -1,6 +1,8 @@
 # vinecellar
 A simple vine downloader/archiver for ownCloud
 
+[![Taiga.io](https://img.shields.io/badge/taiga.io-stories%2C%20tasks%20and%20issues-green.svg)](https://tree.taiga.io/project/christophwurst-vine-cellar)
+
 ## Building the app
 
 The app can be built by using the provided Makefile by running:
